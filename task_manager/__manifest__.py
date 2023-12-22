@@ -10,7 +10,7 @@
         Long description of module's purpose
     """,
 
-    'author': "My Company",
+    'author': "TAMJEED A MUHAMMAD",
     'website': "http://www.yourcompany.com",
 
     # Categories can be used to filter modules in modules listing
@@ -25,9 +25,6 @@
     # always loaded
     'data': [
         'security/ir.model.access.csv',
-    ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
+        'views/task.manager.xml'
     ],
 }

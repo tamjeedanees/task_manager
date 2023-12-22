@@ -16,6 +16,7 @@ The current module is performing the basic CRUD operations. The module containin
 - Added new functionality for counting days remaining according to the deadline.
 - Created the necessary views like kanban, form and list view for the existing module.
 - Created a new menu item for the exisiting module.
+- Added necessary tags for the exisiting module.
 
 ### 3. Testing
 - Run all the unit test cases for the CRUD operations.

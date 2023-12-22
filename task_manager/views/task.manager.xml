@@ -18,6 +18,7 @@
               <group>
                 <field name="description"/>
                 <field name="deadline"/>
+                <field name="days_remaining"/>
                 <field name="task_completed" readonly="True"/>
               </group>
             </group>

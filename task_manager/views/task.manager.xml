@@ -1,0 +1,134 @@
+<odoo>
+  <data>
+    <record id="task_manager_form_view" model="ir.ui.view">
+      <field name="name">Task Manager Form View</field>
+      <field name="model">task.manager</field>
+      <field name="arch" type="xml">
+        <form string="Task Manager">
+          <header>
+              <button name="action_completed" type="object" string="Mark as Completed" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['completed'])]}"/>
+              <field name="state" widget="statusbar"/>
+          </header>
+          <sheet>
+            <div class="oe_title">
+              <label for="title" class="oe_edit_only"/>
+              <h1><field name="title" class="oe_inline"/></h1>
+            </div>
+            <group>
+              <group>
+                <field name="description"/>
+                <field name="deadline"/>
+                <field name="days_remaining"/>
+                <field name="task_completed" readonly="True"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="task_manager_list_view" model="ir.ui.view">
+      <field name="name">Task Manager List View</field>
+      <field name="model">task.manager</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="title"/>
+          <field name="description"/>
+          <field name="deadline"/>
+          <field name="state"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="quick_create_kanban_view_form" model="ir.ui.view">
+        <field name="name">Task Manager Quick Creare Kanban View</field>
+        <field name="model">task.manager</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="title"/>
+                    <field name="description"/>
+                    <field name="deadline"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="task_manager_kanban_view" model="ir.ui.view">
+        <field name="model">Task Manager Kanban View</field>
+        <field name="model">task.manager</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_small_column" on_create="quick_create" quick_create_view="task_manager.quick_create_kanban_view_form" archivable="false">
+                <field name="state" options='{"group_by_tooltip": {"name": "In Progress"}}'/>
+                <field name="title"/>
+                <field name="description"/>
+                <field name="deadline"/>
+                <templates>
+                    <t t-name="kanban-box">
+                      <div t-attf-class="oe_kanban_global_click">
+                        <div class="o_dropdown_kanban dropdown">
+                            <a class="dropdown-toggle o-no-caret btn" role="button" data-toggle="dropdown" data-display="static" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                <span class="fa fa-ellipsis-v"/>
+                            </a>
+                            <div class="dropdown-menu" role="menu">
+                                <t t-if="widget.editable">
+                                    <a role="menuitem" type="edit" class="dropdown-item">Edit</a>
+                                </t>
+                                <t t-if="widget.deletable">
+                                    <a role="menuitem" type="delete" class="dropdown-item">Delete</a>
+                                </t>
+                                <ul class="oe_kanban_colorpicker" data-field="color"/>
+                            </div>
+                        </div>
+                        <div class="oe_kanban_content">
+                            <div>
+                                <strong class="o_kanban_record_title">
+                                    <field name="title"/>
+                                </strong>
+                            </div>
+                            <div>
+                                <field name="description"/>
+                            </div>
+                            <div>
+                                <field name="deadline"/>
+                            </div>
+                        </div>
+                        <div class="oe_clear"/>
+                      </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="task_manager_search_view" model="ir.ui.view">
+        <field name="name">Task Manager Search View</field>
+        <field name="model">task.manager</field>
+        <field name="arch" type="xml">
+            <search string="Loan">
+              <field string="Task Manager" name="title"/>
+              <separator />
+              <field name="description"/>
+              <field name="deadline"/>
+              <separator />
+              <filter domain="[('state', '=', 'completed')]" string="Completed" name="task_completed" help="Completed Tasks"/>
+          </search>
+        </field>
+    </record>
+
+
+    <record id="action_task_manager" model="ir.actions.act_window">
+        <field name="name">Task Manager</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">task.manager</field>
+        <field name="view_mode">kanban,form,tree</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+    </record>
+
+    <menuitem id="task_manager_menu_root" name="Task Manager" web_icon="" action="action_task_manager" sequence="55"/>
+
+  </data>
+</odoo>

@@ -6,7 +6,7 @@
       <field name="arch" type="xml">
         <form string="Task Manager">
           <header>
-              <button name="action_completed" type="object" string="Mark as Completed" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['completed'])]}"/>
+              <button name="action_completed" type="object" string="Mark as Completed" class="oe_highlight" invisible="state in ['completed']"/>
               <field name="state" widget="statusbar"/>
           </header>
           <sheet>
